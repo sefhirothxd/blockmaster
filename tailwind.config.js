@@ -9,10 +9,23 @@ module.exports = {
 				greyLight: '#A7A9BE',
 			},
 			fontSize: {
+				'28px': '28px',
 				'46px': '46px',
 				'48px': '48px',
 				'48px': '48px',
 			},
+			maxWidth: {
+				1366: '1366px',
+				1200: '1200px',
+			},
+			fontFamily: {
+				inter: ['Inter', 'sans-serif'],
+				Montserrat: ['Montserrat', 'sans-serif'],
+			},
+			height: {
+				'40vh': '40vh',
+			},
+			width: {},
 		},
 	},
 	variants: {
