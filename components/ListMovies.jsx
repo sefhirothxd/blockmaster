@@ -94,7 +94,7 @@ const ListMovies = () => {
 									>
 										{item.poster_path ? (
 											<img
-												className="h-full w-full  absolute inset-0 z-10"
+												className="h-full w-full object-cover absolute inset-0 z-10"
 												src={
 													'https://image.tmdb.org/t/p/original' +
 													item.poster_path
@@ -123,15 +123,19 @@ const ListMovies = () => {
 				ariaHideApp={false}
 			>
 				{movie && (
-					<div className="flex justify-between">
+					<div className="flex h-full justify-between items-center">
 						<img
-							className=" w-1/2"
+							className="w-1/4 h-60 info-img ml-28"
 							src={'https://image.tmdb.org/t/p/original' + movie.poster_path}
 							alt={movie.tile}
 						/>
-						<div>
-							<h2>{movie.title}</h2>
-							<p>{movie.overview}</p>
+						<div className="w-1/2">
+							<h2 className="font-Montserrat text-5xl font-bold mb-2">
+								{movie.title}
+							</h2>
+							<p className="font-Montserrat text-lg font-normal leading-7">
+								{movie.overview}
+							</p>
 						</div>
 					</div>
 				)}
@@ -140,4 +144,4 @@ const ListMovies = () => {
 	);
 };
 
-export default React.memo(ListMovies);
+export default ListMovies;

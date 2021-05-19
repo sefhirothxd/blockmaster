@@ -7,6 +7,7 @@ module.exports = {
 				blackPrimary: '#0F0E17',
 				amarrillo: '#FED941',
 				greyLight: '#A7A9BE',
+				modalFondo: '#0C0E16',
 			},
 			fontSize: {
 				'28px': '28px',
@@ -25,7 +26,13 @@ module.exports = {
 			height: {
 				'40vh': '40vh',
 			},
-			width: {},
+			width: {
+				1200: '1200px',
+			},
+			translate: {
+				'-200': '-200%',
+				'-300': '-300%',
+			},
 		},
 	},
 	variants: {

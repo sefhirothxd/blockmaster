@@ -16,6 +16,7 @@
 	z-index: 999;
 	color: white;
 	outline: none;
+	background-color: rgba(0, 0, 0, 0.8);
 }
 .Overlay {
 	position: fixed;
@@ -28,4 +29,9 @@
 	bottom: 0;
 	background-color: rgba(0, 0, 0, 0.8);
 	z-index: 999;
+}
+
+.info-img {
+	border-radius: 9.78169px;
+	transform: matrix(0.71, -0.41, 1.22, 0.71, 0, 0);
 }
