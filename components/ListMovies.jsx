@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Modal from 'react-modal';
+import { useSelector, useDispatch } from 'react-redux';
 
 const ListMovies = () => {
 	const [movies, setMovies] = useState([]);
@@ -9,26 +10,16 @@ const ListMovies = () => {
 	const [page, setPage] = useState(2);
 	const [modalOpen, setOpen] = useState(false);
 
+	const moviesRedux = useSelector((store) => store.movies.movie);
+	const busquedaRedux = useSelector((store) => store.movies.search);
+	const busquedaEstado = useSelector((store) => store.movies.busquedaActiva);
+
 	function openModal() {
 		setOpen(true);
 	}
 	function closeModal() {
 		setOpen(false);
 	}
-
-	const obtenerResultado = async () => {
-		await axios
-			.get(
-				'https://api.themoviedb.org/3/movie/popular?api_key=f94556c96168acd61cd6d55d3ab285ec&language=es-ES&page=1'
-			)
-			.then(function (response) {
-				console.log(response.data);
-				setMovies(response.data.results);
-			})
-			.catch(function (error) {
-				console.error(error);
-			});
-	};
 	const siguiente = async (e) => {
 		console.log('siguiente:', setPage);
 		await axios
@@ -46,15 +37,6 @@ const ListMovies = () => {
 		setPage(page + 1);
 	};
 	useEffect(() => {
-		obtenerResultado();
-		if (modalOpen) {
-			document.body.style.overflow = 'hidden';
-		} else {
-			document.body.style.overflow = 'unset';
-		}
-	}, [setMovies]);
-
-	useEffect(() => {
 		if (modalOpen) {
 			document.body.style.overflow = 'hidden';
 		} else {
@@ -62,17 +44,28 @@ const ListMovies = () => {
 		}
 	}, [modalOpen]);
 
+	useEffect(() => {
+		setMovies(moviesRedux);
+	}, [moviesRedux]);
+
 	const seleccionarPelicula = (id) => {
 		console.log(id);
-		const peli = movies.filter((item) => {
-			return item.id == id ? item : null;
-		});
-		console.log(peli[0]);
-		setMovie(peli[0]);
-		openModal();
+		if (!busquedaEstado) {
+			const peli = movies.filter((item) => {
+				return item.id == id ? item : null;
+			});
+			setMovie(peli[0]);
+			openModal();
+		} else {
+			const peli = busquedaRedux.filter((item) => {
+				return item.id == id ? item : null;
+			});
+			setMovie(peli[0]);
+			openModal();
+		}
 	};
 
-	return (
+	return busquedaEstado == false ? (
 		<div>
 			<h1 className="text-white text-5xl font-Montserrat font-bold mb-12">
 				Todas las peliculas
@@ -84,36 +77,94 @@ const ListMovies = () => {
 				loader={<h4>Loading...</h4>}
 			>
 				<div className="flex w-full justify-start gap-x-5 gap-y-12 flex-wrap">
-					{movies
-						? movies.map((item, index) => {
-								return (
-									<div
-										className="h-80 w-56 relative rounded-lg overflow-hidden"
-										key={index}
-										onClick={() => seleccionarPelicula(item.id)}
-									>
-										{item.poster_path ? (
-											<img
-												className="h-full w-full object-cover absolute inset-0 z-10"
-												src={
-													'https://image.tmdb.org/t/p/original' +
-													item.poster_path
-												}
-												alt={item.original_title}
-											/>
-										) : null}
-										<div className="z-20 bg-black bg-opacity-70 text-left absolute w-1/2 top-7 border-amarrillo border-2 border-l-0 rounded-r-full  flex py-2 items-center justify-center">
-											<img src="/estrella.svg" alt="estella" className="mr-2" />
-											<h3 className="text-white text-28px font-bold font-Montserrat">
-												{item.vote_average}
-											</h3>
-										</div>
+					{movies &&
+						movies.map((item, index) => {
+							return (
+								<div
+									className="h-80 w-56 relative rounded-lg overflow-hidden"
+									key={index}
+									onClick={() => seleccionarPelicula(item.id)}
+								>
+									{item.poster_path ? (
+										<img
+											className="h-full w-full object-cover absolute inset-0 z-10"
+											src={
+												'https://image.tmdb.org/t/p/original' + item.poster_path
+											}
+											alt={item.original_title}
+										/>
+									) : null}
+									<div className="z-20 bg-black bg-opacity-70 text-left absolute w-1/2 top-7 border-amarrillo border-2 border-l-0 rounded-r-full  flex py-2 items-center justify-center">
+										<img src="/estrella.svg" alt="estella" className="mr-2" />
+										<h3 className="text-white text-28px font-bold font-Montserrat">
+											{item.vote_average}
+										</h3>
 									</div>
-								);
-						  })
-						: 'No se encontro la pelicula'}
+								</div>
+							);
+						})}
 				</div>
 			</InfiniteScroll>
+			<Modal
+				isOpen={modalOpen}
+				onRequestClose={closeModal}
+				className="Modal"
+				overlayClassName="Overlay"
+				contentLabel="Example Modal"
+				ariaHideApp={false}
+			>
+				{movie && (
+					<div className="flex h-full justify-between items-center">
+						<img
+							className="w-1/4 h-60 info-img ml-28"
+							src={'https://image.tmdb.org/t/p/original' + movie.poster_path}
+							alt={movie.tile}
+						/>
+						<div className="w-1/2">
+							<h2 className="font-Montserrat text-5xl font-bold mb-2">
+								{movie.title}
+							</h2>
+							<p className="font-Montserrat text-lg font-normal leading-7">
+								{movie.overview}
+							</p>
+						</div>
+					</div>
+				)}
+			</Modal>
+		</div>
+	) : (
+		<div className="mt-5 pb-5">
+			<h1 className="text-white text-5xl font-Montserrat font-bold mb-12">
+				Resultado de la busqueda
+			</h1>
+			<div className="flex w-full justify-start gap-x-5 gap-y-12 flex-wrap">
+				{busquedaRedux &&
+					busquedaRedux.map((item, index) => {
+						return (
+							<div
+								className="h-80 w-56 relative rounded-lg overflow-hidden"
+								key={index}
+								onClick={() => seleccionarPelicula(item.id)}
+							>
+								{item.poster_path ? (
+									<img
+										className="h-full w-full object-cover absolute inset-0 z-10"
+										src={
+											'https://image.tmdb.org/t/p/original' + item.poster_path
+										}
+										alt={item.original_title}
+									/>
+								) : null}
+								<div className="z-20 bg-black bg-opacity-70 text-left absolute w-1/2 top-7 border-amarrillo border-2 border-l-0 rounded-r-full  flex py-2 items-center justify-center">
+									<img src="/estrella.svg" alt="estella" className="mr-2" />
+									<h3 className="text-white text-28px font-bold font-Montserrat">
+										{item.vote_average}
+									</h3>
+								</div>
+							</div>
+						);
+					})}
+			</div>
 			<Modal
 				isOpen={modalOpen}
 				onRequestClose={closeModal}
