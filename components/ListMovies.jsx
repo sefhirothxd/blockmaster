@@ -126,7 +126,11 @@ const ListMovies = () => {
 											/>
 										) : null}
 										<div className="z-20 bg-black bg-opacity-70 text-left absolute w-1/2 top-7 border-amarrillo border-2 border-l-0 rounded-r-full  flex py-2 items-center justify-center">
-											<img src="/estrella.svg" alt="estella" className="mr-2" />
+											<img
+												src="/estrella.svg"
+												alt="estella"
+												className="mr-2 h-5 w-5"
+											/>
 											<h3 className="text-white text-28px font-bold font-Montserrat">
 												{item.vote_average}
 											</h3>
@@ -156,7 +160,11 @@ const ListMovies = () => {
 										/>
 									) : null}
 									<div className="z-20 bg-black bg-opacity-70 text-left absolute w-1/2 top-7 border-amarrillo border-2 border-l-0 rounded-r-full  flex py-2 items-center justify-center">
-										<img src="/estrella.svg" alt="estella" className="mr-2" />
+										<img
+											src="/estrella.svg"
+											alt="estella"
+											className="mr-2 h-5 w-5"
+										/>
 										<h3 className="text-white text-28px font-bold font-Montserrat">
 											{item.vote_average}
 										</h3>
