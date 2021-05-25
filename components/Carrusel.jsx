@@ -25,8 +25,8 @@ const Carrusel = () => {
 	}, []);
 
 	return (
-		<div className="overflow-x-hidden">
-			<div id="contenedor" className={`container ${trasiones}`}>
+		<div className="overflow-x-hidden hidden md:block">
+			<div id="contenedor" className={`container-slider ${trasiones}`}>
 				<img
 					className="h-full object-cover w-full"
 					src="/mulan.png"

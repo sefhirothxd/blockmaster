@@ -4,10 +4,11 @@ import axios from 'axios';
 const dataInicial = {
 	movie: [],
 	search: [],
-	busquedaActiva: false,
+	busquedaActiva: 'todos',
 };
 
 const GET_MOVIE_SUCCESS = 'GET_MOVIE_SUCCESS';
+const GET_TOP_RATED = 'GET_TOP_RATED';
 const SEARCH_MOVIE_SUCCESS = 'SEARCH_MOVIE_SUCCESS';
 const NO_CONTENT = 'NO_CONTENT';
 
@@ -15,11 +16,17 @@ const NO_CONTENT = 'NO_CONTENT';
 export default function movieReducer(state = dataInicial, action) {
 	switch (action.type) {
 		case GET_MOVIE_SUCCESS:
-			return { ...state, movie: action.payload };
+			return {
+				...state,
+				movie: action.payload,
+				busquedaActiva: 'todos',
+			};
 		case SEARCH_MOVIE_SUCCESS:
-			return { ...state, search: action.payload, busquedaActiva: true };
+			return { ...state, search: action.payload, busquedaActiva: 'buscar' };
+		case GET_TOP_RATED:
+			return { ...state, movie: action.payload, busquedaActiva: 'top' };
 		case NO_CONTENT:
-			return { ...state, busquedaActiva: false };
+			return { ...state, busquedaActiva: 'todos' };
 		default:
 			return state;
 	}
@@ -33,6 +40,19 @@ export const getMovieAction = () => async (dispatch, getState) => {
 		);
 		dispatch({
 			type: GET_MOVIE_SUCCESS,
+			payload: res.data.results,
+		});
+	} catch (error) {
+		console.log(error);
+	}
+};
+export const getTopRated = () => async (dispatch, getState) => {
+	try {
+		const res = await axios.get(
+			'https://api.themoviedb.org/3/movie/top_rated?api_key=f94556c96168acd61cd6d55d3ab285ec&language=es-ES&page=1'
+		);
+		dispatch({
+			type: GET_TOP_RATED,
 			payload: res.data.results,
 		});
 	} catch (error) {

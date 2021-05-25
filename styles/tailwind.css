@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 @layer components {
-	.container {
+	.container-slider {
 		@apply w-full h-80  flex flex-nowrap transition-all duration-1000 ease-linear transform items-center mb-5;
 	}
 }

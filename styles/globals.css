@@ -10,7 +10,7 @@
 
 .Modal {
 	position: absolute;
-	width: 1200px;
+	max-width: 1200px;
 	height: 579px;
 	background-color: transparent;
 	z-index: 999;
