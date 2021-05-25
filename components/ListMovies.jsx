@@ -120,8 +120,7 @@ const ListMovies = () => {
 											<img
 												className="h-full w-full object-cover absolute inset-0 z-10"
 												src={
-													'https://image.tmdb.org/t/p/original' +
-													item.poster_path
+													'https://image.tmdb.org/t/p/w500' + item.poster_path
 												}
 												alt={item.original_title}
 											/>
