@@ -121,7 +121,7 @@ const ListMovies = () => {
 											<img
 												className="h-full w-full object-cover absolute inset-0 z-10"
 												src={
-													'https://image.tmdb.org/t/p/w500' + item.poster_path
+													'https://image.tmdb.org/t/p/w342' + item.poster_path
 												}
 												alt={item.original_title}
 											/>
@@ -157,9 +157,7 @@ const ListMovies = () => {
 									{item.poster_path ? (
 										<img
 											className="h-full w-full object-cover absolute inset-0 z-10"
-											src={
-												'https://image.tmdb.org/t/p/original' + item.poster_path
-											}
+											src={'https://image.tmdb.org/t/p/w342' + item.poster_path}
 											alt={item.original_title}
 										/>
 									) : null}
@@ -194,7 +192,7 @@ const ListMovies = () => {
 					<div className="flex h-full md:justify-between items-center flex-col lg:flex-row">
 						<img
 							className="md:w-1/4 w-4/5 h-60 info-img ml-0 md:ml-28 mb-10 md:mb-0"
-							src={'https://image.tmdb.org/t/p/original' + movie.poster_path}
+							src={'https://image.tmdb.org/t/p/w342' + movie.poster_path}
 							alt={movie.tile}
 						/>
 						<div className="w-full md:w-1/2 px-5">
