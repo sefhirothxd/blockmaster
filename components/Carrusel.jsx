@@ -29,17 +29,17 @@ const Carrusel = () => {
 			<div id="contenedor" className={`container-slider ${trasiones}`}>
 				<img
 					className="h-full object-cover w-full"
-					src="/mulan.png"
+					src="/mulan-min.png"
 					alt="mulan"
 				/>
 				<img
 					className="h-full object-cover w-full"
-					src="/raya.png"
+					src="/raya-min.png"
 					alt="raya"
 				/>
 				<img
 					className="h-full object-cover w-full"
-					src="/unidos.png"
+					src="/unidos-min.png"
 					alt="unidos"
 				/>
 			</div>
