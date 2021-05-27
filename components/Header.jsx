@@ -43,9 +43,11 @@ const Header = () => {
 				</button>
 			</div>
 			{menuMovil && (
-				<div className="lg:hidden w-full md:flex md:justify-between md:items-center mt-5">
+				<div
+					className={`lg:hidden animate-menu   w-full md:flex md:justify-between md:items-center mt-5 px-5`}
+				>
 					<nav>
-						<ul className="flex gap-10 text-xs sm:text-base text-white font-inter">
+						<ul className="flex justify-center gap-10 text-xs sm:text-base text-white font-inter">
 							<li>
 								<button onClick={() => dispatch(getMovieAction())}>
 									Todas
@@ -57,7 +59,9 @@ const Header = () => {
 								</button>
 							</li>
 							<li>
-								<button href="">Menos Valoradas</button>
+								<button onClick={() => alert('Muy pronto estara habilitado')}>
+									Menos Valoradas
+								</button>
 							</li>
 						</ul>
 					</nav>

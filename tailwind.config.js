@@ -33,6 +33,15 @@ module.exports = {
 				'-200': '-200%',
 				'-300': '-300%',
 			},
+			animation: {
+				menu: 'menu 0.5s cubic-bezier(.43,.46,.46,.46) ',
+			},
+			keyframes: {
+				menu: {
+					'0%': { transform: 'translateY(-200px)', opacity: 0 },
+					'100%': { transform: 'translateY(0)', opacity: 1 },
+				},
+			},
 		},
 	},
 	variants: {

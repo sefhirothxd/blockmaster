@@ -24,7 +24,7 @@ const ListMovies = () => {
 	}
 
 	const changeData = (data) => {
-		console.log('aqui data ' + data);
+		// console.log('aqui data ' + data);
 		if (data == 'todos') {
 			setMovies(moviesRedux);
 		}
@@ -113,7 +113,7 @@ const ListMovies = () => {
 							movies.map((item, index) => {
 								return (
 									<div
-										className="h-80 w-56 relative rounded-lg overflow-hidden"
+										className="h-80 w-56 relative rounded-lg overflow-hidden cursor-pointer"
 										key={index}
 										onClick={() => seleccionarPelicula(item.id)}
 									>
@@ -150,7 +150,7 @@ const ListMovies = () => {
 						movies.map((item, index) => {
 							return (
 								<div
-									className="h-80 w-56 relative rounded-lg overflow-hidden"
+									className="h-80 w-56 relative rounded-lg overflow-hidden cursor-pointer"
 									key={index}
 									onClick={() => seleccionarPelicula(item.id)}
 								>
@@ -189,19 +189,29 @@ const ListMovies = () => {
 				ariaHideApp={false}
 			>
 				{movie && (
-					<div className="flex h-full md:justify-between items-center flex-col lg:flex-row">
-						<img
-							className="md:w-1/4 w-4/5 h-60 info-img ml-0 md:ml-28 mb-10 md:mb-0"
-							src={'https://image.tmdb.org/t/p/w342' + movie.poster_path}
-							alt={movie.tile}
-						/>
-						<div className="w-full md:w-1/2 px-5">
-							<h2 className="font-Montserrat text-2xl md:text-5xl font-bold mb-2">
-								{movie.title}
-							</h2>
-							<p className="font-Montserra text-base  md:text-lg font-normal leading-7">
-								{movie.overview}
+					<div className="h-full pb-10">
+						<div className="w-full text-right">
+							<p
+								onClick={closeModal}
+								className="text-white font-bold text-right mt-5 inline-block text-4xl mr-5 cursor-pointer"
+							>
+								X
 							</p>
+						</div>
+						<div className="flex h-full md:justify-between items-center flex-col lg:flex-row">
+							<img
+								className="md:w-1/4 w-2/4 h-60 info-img ml-0 md:ml-28 mb-10 md:mb-0"
+								src={'https://image.tmdb.org/t/p/w342' + movie.poster_path}
+								alt={movie.tile}
+							/>
+							<div className="w-full md:w-1/2 px-5">
+								<h2 className="font-Montserrat text-2xl md:text-5xl font-bold mb-2">
+									{movie.title}
+								</h2>
+								<p className="font-Montserra text-base  md:text-lg font-normal leading-7">
+									{movie.overview}
+								</p>
+							</div>
 						</div>
 					</div>
 				)}
